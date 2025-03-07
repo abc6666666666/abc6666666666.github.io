@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,79 +7,86 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background-color: #f0f8ff;
             text-align: center;
-            padding: 20px;
+            padding: 50px;
         }
-        h1 {
-            color: #4CAF50;
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto;
         }
-        #message {
-            font-size: 18px;
-            color: #555;
-        }
-        input[type="number"] {
+        input {
             padding: 10px;
             font-size: 16px;
-            margin: 10px;
-            width: 60px;
-            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
         button {
             padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
             background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
         }
         button:hover {
             background-color: #45a049;
+        }
+        .message {
+            font-size: 18px;
+            margin-top: 20px;
+            color: #ff6347;
         }
     </style>
 </head>
 <body>
 
-    <h1>猜數字遊戲</h1>
-    <p>我已經選擇了一個1到100之間的數字，請你來猜猜它是什麼！</p>
-    <div id="message">請輸入1到100之間的數字。</div>
-    <input type="number" id="guess" min="1" max="100">
-    <button onclick="checkGuess()">猜猜看！</button>
+    <div class="container">
+        <h1>猜數字遊戲</h1>
+        <p>猜一個 1 到 100 之間的數字！</p>
+        <input type="number" id="userGuess" placeholder="輸入你的猜測" min="1" max="100">
+        <button onclick="checkGuess()">提交猜測</button>
+        <p id="message" class="message"></p>
+    </div>
 
     <script>
-        // 隨機選擇一個1到100之間的數字
+        // 隨機生成一個 1 到 100 之間的數字
         let secretNumber = Math.floor(Math.random() * 100) + 1;
         let attempts = 0;
 
-        // 檢查猜測的函數
+        // 用戶的猜測判斷函數
         function checkGuess() {
-            const userGuess = document.getElementById("guess").value;
-            const messageDiv = document.getElementById("message");
+            let userGuess = parseInt(document.getElementById('userGuess').value);
+            let message = document.getElementById('message');
             attempts++;
 
-            // 檢查是否為有效數字
-            if (userGuess < 1 || userGuess > 100 || isNaN(userGuess)) {
-                messageDiv.textContent = "請輸入1到100之間的數字！";
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+                message.textContent = "請輸入 1 到 100 之間的數字！";
+                message.style.color = "#ff6347";
                 return;
             }
 
-            // 提示用戶猜測的結果
             if (userGuess < secretNumber) {
-                messageDiv.textContent = "猜得太低了，再試一次！";
+                message.textContent = "太小了！再試一次！";
+                message.style.color = "#ff6347";
             } else if (userGuess > secretNumber) {
-                messageDiv.textContent = "猜得太高了，再試一次！";
+                message.textContent = "太大了！再試一次！";
+                message.style.color = "#ff6347";
             } else {
-                messageDiv.textContent = `恭喜你，猜對了！正確答案是 ${secretNumber}。你總共猜了 ${attempts} 次。`;
-                // 重新開始遊戲
+                message.textContent = `恭喜你！猜對了！你猜了 ${attempts} 次。`;
+                message.style.color = "#32CD32";
+                // 重設遊戲
                 secretNumber = Math.floor(Math.random() * 100) + 1;
                 attempts = 0;
             }
-
-            // 清空輸入框
-            document.getElementById("guess").value = "";
         }
     </script>
 
 </body>
 </html>
+
