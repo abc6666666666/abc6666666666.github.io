@@ -1,25 +1,100 @@
-<html lang="zh">
+<!DOCTYPE html>
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的個人網站</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>個人網站</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+    #clown {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 50px;
+      color: red;
+    }
+    #game-link {
+      display: none;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>歡迎來到我的個人網站</h1>
-    </header>
-    <main>
-        <p>這是我的網站，我會在這裡展示我的作品和經歷。</p>
-    </main>
-    <footer>
-        <p>聯繫我: your-email@gmail.com</p>
-    </footer>
+  <h1>歡迎來到我的個人網站</h1>
+  <p>這裡是一個簡單的自我介紹頁面！</p>
+  <button id="surpriseButton">點擊有驚喜</button>
+
+  <div id="clown">🤡</div>
+  <a id="game-link" href="game.html">點我開始小遊戲</a>
+
+  <script>
+    document.getElementById("surpriseButton").onclick = function() {
+      // 顯示小丑並顯示遊戲鏈接
+      document.getElementById("clown").style.display = "block";
+      document.getElementById("game-link").style.display = "inline-block";
+
+      // 小丑動畫效果
+      setTimeout(function() {
+        document.getElementById("clown").style.fontSize = "100px";
+        document.getElementById("clown").style.transition = "font-size 1s";
+      }, 1000);
+    };
+  </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的個人網站</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小遊戲</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    #gameArea {
+      width: 300px;
+      height: 300px;
+      margin: 50px auto;
+      background-color: lightblue;
+      position: relative;
+    }
+    #player {
+      width: 50px;
+      height: 50px;
+      background-color: red;
+      position: absolute;
+      top: 125px;
+      left: 125px;
+    }
+  </style>
 </head>
-<img src="https://img.4gamers.com.tw/ckfinder/images/ALIEN/2024-1/b-gallery1-277ce71e.jpg?versionId=WZZCt1ncwKnapdhv9Sfk4YzfClDl6.t7" alt="我的照片" width="300" style="border-radius: 10px;">
+<body>
+  <h1>開始小遊戲！</h1>
+  <div id="gameArea">
+    <div id="player"></div>
+  </div>
+
+  <script>
+    const player = document.getElementById('player');
+    const gameArea = document.getElementById('gameArea');
+
+    gameArea.addEventListener('click', function(event) {
+      const rect = gameArea.getBoundingClientRect();
+      const x = event.clientX - rect.left - player.offsetWidth / 2;
+      const y = event.clientY - rect.top - player.offsetHeight / 2;
+
+      player.style.left = `${x}px`;
+      player.style.top = `${y}px`;
+    });
+  </script>
+</body>
+</html>
+
